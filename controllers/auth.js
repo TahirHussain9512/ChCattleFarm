@@ -134,7 +134,7 @@ module.exports.addRefrence = async (req, res, next) => {
 
 
 module.exports.addSaler = async (req, res) => {
-  const { animal_img,animal_condition, profit_percentage_by_day, profit_amount_by_day, profit_amount_by_month, profit_percentage_by_month, animal_term_conditions, animal_baby_gender, saler_notes, care_taker_actual_profit, owner_actual_profit, total_actual_profit, animal_advance_loan, animal_notes, animal_tag, animal_age, animal_type, animal_gender, animal_color, animal_weight, animal_purchased_price, animal_purchased_date, animal_seman_date, care_taker, owner, expence_name, expence_price, saler_name, saler_contact, saler_address, sale_price, sale_date, owner_amount, care_taker_amount, animal_refrence, total_actual_profit_percentage, care_taker_actual_profit_percentage, owner_actual_profit_percentage, type, animal_seman_type, animal_baby } = req.body;
+  const { animal_img, animal_condition, profit_percentage_by_day, profit_amount_by_day, profit_amount_by_month, profit_percentage_by_month, animal_term_conditions, animal_baby_gender, saler_notes, care_taker_actual_profit, owner_actual_profit, total_actual_profit, animal_advance_loan, animal_notes, animal_tag, animal_age, animal_type, animal_gender, animal_color, animal_weight, animal_purchased_price, animal_purchased_date, animal_seman_date, care_taker, owner, expence_name, expence_price, saler_name, saler_contact, saler_address, sale_price, sale_date, owner_amount, care_taker_amount, animal_refrence, total_actual_profit_percentage, care_taker_actual_profit_percentage, owner_actual_profit_percentage, type, animal_seman_type, animal_baby } = req.body;
 
   try {
 
@@ -393,31 +393,21 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
           today: [
             {
               $match: {
-                createdAt: {
-                  $gte: new Date(new Date().setHours(0, 0, 0, 0)), // Start of today
-                  $lt: new Date(new Date().setHours(24, 0, 0, 0)) // Start of tomorrow
-                }
+                animal_purchased_date: now.toISOString().slice(0, 10)
+                // {
+                //$gte: new Date(new Date().setHours(0, 0, 0, 0)), // Start of today
+                //$lt: new Date(new Date().setHours(24, 0, 0, 0)) // Start of tomorrow
+
+                // }
               }
             }
           ],
           thisWeek: [
             {
               $match: {
-                createdAt: {
-                  $gte: (() => {
-                    let today = new Date();
-                    let dayOfWeek = today.getDay();
-                    let mondayDate = new Date(today.setDate(today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)));
-                    mondayDate.setHours(0, 0, 0, 0);
-                    return mondayDate;
-                  })(),
-                  $lt: (() => {
-                    let today = new Date();
-                    let dayOfWeek = today.getDay();
-                    let sundayDate = new Date(today.setDate(today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1) + 6));
-                    sundayDate.setHours(23, 59, 59, 999);
-                    return sundayDate;
-                  })()
+                animal_purchased_date: {
+                  $gte: mondayDate.toISOString().slice(0, 10),
+                  $lt: sundayDate.toISOString().slice(0, 10)
                 }
               }
             }
@@ -425,9 +415,9 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
           thisMonth: [
             {
               $match: {
-                createdAt: {
-                  $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-                  $lt: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)
+                animal_purchased_date: {
+                  $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10),
+                  $lt: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 2).toISOString().slice(0, 10)
                 }
               }
             }
@@ -435,9 +425,9 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
           thisYear: [
             {
               $match: {
-                createdAt: {
-                  $gte: new Date(new Date().getFullYear(), 0, 1),
-                  $lt: new Date(new Date().getFullYear(), 11, 31, 23, 59, 59, 999)
+                animal_purchased_date: {
+                  $gte: new Date(new Date().getFullYear(), 0, 1).toISOString().slice(0, 10),
+                  $lt: new Date(new Date().getFullYear(), 11, 31, 23, 59, 59, 999).toISOString().slice(0, 10)
                 }
               }
             }
@@ -453,31 +443,22 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
           today: [
             {
               $match: {
-                createdAt: {
-                  $gte: new Date(new Date().setHours(0, 0, 0, 0)), // Start of today
-                  $lt: new Date(new Date().setHours(24, 0, 0, 0)) // Start of tomorrow
-                }
+                sale_date: now.toISOString().slice(0, 10)
+                // {
+                //$gte: new Date(new Date().setHours(0, 0, 0, 0)), // Start of today
+                //$lt: new Date(new Date().setHours(24, 0, 0, 0)) // Start of tomorrow
+
+                // }
+
               }
             }
           ],
           thisWeek: [
             {
               $match: {
-                createdAt: {
-                  $gte: (() => {
-                    let today = new Date();
-                    let dayOfWeek = today.getDay();
-                    let mondayDate = new Date(today.setDate(today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)));
-                    mondayDate.setHours(0, 0, 0, 0);
-                    return mondayDate;
-                  })(),
-                  $lt: (() => {
-                    let today = new Date();
-                    let dayOfWeek = today.getDay();
-                    let sundayDate = new Date(today.setDate(today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1) + 6));
-                    sundayDate.setHours(23, 59, 59, 999);
-                    return sundayDate;
-                  })()
+                sale_date: {
+                  $gte: mondayDate.toISOString().slice(0, 10),
+                  $lt: sundayDate.toISOString().slice(0, 10)
                 }
               }
             }
@@ -485,9 +466,9 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
           thisMonth: [
             {
               $match: {
-                createdAt: {
-                  $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1), // Start of this month
-                  $lt: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1) // Start of next month
+                sale_date: {
+                  $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10),
+                  $lt: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 2).toISOString().slice(0, 10)
                 }
               }
             }
@@ -495,9 +476,9 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
           thisYear: [
             {
               $match: {
-                createdAt: {
-                  $gte: new Date(new Date().getFullYear(), 0, 1),
-                  $lt: new Date(new Date().getFullYear(), 11, 31, 23, 59, 59, 999)
+                sale_date: {
+                  $gte: new Date(new Date().getFullYear(), 0, 1).toISOString().slice(0, 10),
+                  $lt: new Date(new Date().getFullYear(), 11, 31, 23, 59, 59, 999).toISOString().slice(0, 10)
                 }
               }
             }
@@ -511,15 +492,68 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
       monthStartDate: fromDate,
       monthEndDate: toDate,
       weekStartDate: mondayDate,
-      weekEndDate: sundayDate,
+      weekEndDate: sundayDate
     }
 
+    let animalAndSalerDetails = await Saler.aggregate([
+      {
+        $facet: {
+          today: [
+            {
+              $match: {
+                animal_purchased_date: now.toISOString().slice(0, 10)
+                // {
+                //$gte: new Date(new Date().setHours(0, 0, 0, 0)), // Start of today
+                //$lt: new Date(new Date().setHours(24, 0, 0, 0)) // Start of tomorrow
+
+                // }
+
+              }
+            }
+          ],
+          thisWeek: [
+            {
+              $match: {
+                animal_purchased_date: {
+                  $gte: mondayDate.toISOString().slice(0, 10),
+                  $lt: sundayDate.toISOString().slice(0, 10)
+                }
+              }
+            }
+          ],
+          thisMonth: [
+            {
+              $match: {
+                animal_purchased_date: {
+                  $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10),
+                  $lt: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 2).toISOString().slice(0, 10)
+                }
+              }
+            }
+          ],
+          thisYear: [
+            {
+              $match: {
+                animal_purchased_date: {
+                  $gte: new Date(new Date().getFullYear(), 0, 1).toISOString().slice(0, 10),
+                  $lt: new Date(new Date().getFullYear(), 11, 31, 23, 59, 59, 999).toISOString().slice(0, 10)
+                }
+              }
+            }
+
+          ],
+        }
+      }
+    ]);
+
+    let animalAndSalerDetailes = [animalAndSalerDetails,animalDetails]
 
 
 
 
-    if (animalDetails || salerDetails || dates) {
-      return res.status(200).json({ animalDetails, salerDetails, dates });
+
+    if (animalDetails || salerDetails || dates || animalAndSalerDetailes) {
+      return res.status(200).json({ animalDetails, salerDetails, dates,animalAndSalerDetailes });
     } else {
       return res.status(404).json({ error: true, msg: "User Not Found" });
     }
