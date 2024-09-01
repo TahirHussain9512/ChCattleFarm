@@ -6,6 +6,8 @@ const schema = new mongoose.Schema({
     care_taker_contact: { type: String, required: false },
     care_taker_address: { type: String, required: false },
     care_taker_cnic: { type: String, required: false },
+    care_taker_father: { type: String, required: false },
+    care_taker_cast: { type: String, required: false },
     care_taker_id_card_back: { type: String, required: false },
     care_taker_id_card_front: { type: String, required: false },
     isVerified: { type: Boolean },
