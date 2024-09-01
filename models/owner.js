@@ -6,6 +6,8 @@ const schema = new mongoose.Schema({
     owner_contact: { type: String, required: false },
     owner_address: { type: String, required: false },
     owner_cnic: { type: String, required: false },
+    owner_father: { type: String, required: false },
+    owner_cast: { type: String, required: false },
     isVerified: { type: Boolean },
     resetCode: { type: String },
     resetCodeTime: { type: Date },
