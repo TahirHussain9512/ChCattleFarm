@@ -8,6 +8,8 @@ const schema = new mongoose.Schema({
     refrence_cnic: { type: String, required: false },
     refrence_id_card_back: { type: String, required: false },
     refrence_id_card_front: { type: String, required: false },
+    refrence_father: { type: String, required: false },
+    refrence_cast: { type: String, required: false },
     isVerified: { type: Boolean },
     resetCode: { type: String },
     resetCodeTime: { type: Date },
