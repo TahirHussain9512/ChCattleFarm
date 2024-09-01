@@ -7,12 +7,13 @@ const Refrence = require("../models/refrence");
 
 
 module.exports.addAnimal = async (req, res, next) => {
-  const { animal_img, animal_term_conditions, type, animal_baby_gender, animal_seman_type, animal_baby, animal_notes, animal_advance_loan, animal_tag, animal_age, animal_type, animal_gender, animal_color, animal_weight, animal_purchased_price, animal_purchased_date, animal_seman_date, care_taker, owner, animal_refrence, expence_name, expence_price, animal_video, animal_catetaker_aggrement_video } = req.body;
+  const { animal_img, animal_img2, animal_term_conditions, type, animal_baby_gender, animal_seman_type, animal_baby, animal_notes, animal_advance_loan, animal_tag, animal_age, animal_type, animal_gender, animal_color, animal_weight, animal_purchased_price, animal_purchased_date, animal_seman_date, care_taker, owner, animal_refrence, expence_name, expence_price, animal_video, animal_catetaker_aggrement_video } = req.body;
 
   try {
 
     const animal = await Animal.create({
       animal_img,
+      animal_img2,
       animal_tag,
       animal_age,
       animal_type,
@@ -140,12 +141,13 @@ module.exports.addRefrence = async (req, res, next) => {
 
 
 module.exports.addSaler = async (req, res) => {
-  const { animal_img, animal_condition, profit_percentage_by_day, profit_amount_by_day, profit_amount_by_month, profit_percentage_by_month, animal_term_conditions, animal_baby_gender, saler_notes, care_taker_actual_profit, owner_actual_profit, total_actual_profit, animal_advance_loan, animal_notes, animal_tag, animal_age, animal_type, animal_gender, animal_color, animal_weight, animal_purchased_price, animal_purchased_date, animal_seman_date, care_taker, owner, expence_name, expence_price, saler_name, saler_contact, saler_address, sale_price, sale_date, owner_amount, care_taker_amount, animal_refrence, total_actual_profit_percentage, care_taker_actual_profit_percentage, owner_actual_profit_percentage, type, animal_seman_type, animal_baby } = req.body;
+  const { animal_img, animal_img2, animal_condition, profit_percentage_by_day, profit_amount_by_day, profit_amount_by_month, profit_percentage_by_month, animal_term_conditions, animal_baby_gender, saler_notes, care_taker_actual_profit, owner_actual_profit, total_actual_profit, animal_advance_loan, animal_notes, animal_tag, animal_age, animal_type, animal_gender, animal_color, animal_weight, animal_purchased_price, animal_purchased_date, animal_seman_date, care_taker, owner, expence_name, expence_price, saler_name, saler_contact, saler_address, sale_price, sale_date, owner_amount, care_taker_amount, animal_refrence, total_actual_profit_percentage, care_taker_actual_profit_percentage, owner_actual_profit_percentage, type, animal_seman_type, animal_baby } = req.body;
 
   try {
 
     const animal = await Saler.create({
       animal_img,
+      animal_img2,
       animal_tag,
       animal_age,
       animal_type,
