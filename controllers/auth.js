@@ -377,7 +377,7 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
   const now = new Date();
   try {
     // Month
-    let fromDate = new Date(new Date().getFullYear(), new Date().getMonth(), 2);
+    let fromDate = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
     let toDate = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1);
     // week
     let today = new Date();
