@@ -52,7 +52,7 @@ module.exports.addAnimal = async (req, res, next) => {
 
 
 module.exports.addCareTaker = async (req, res, next) => {
-  const { care_taker_img, care_taker_name, care_taker_contact, care_taker_address, care_taker_cnic, care_taker_id_card_back, care_taker_id_card_front } = req.body;
+  const { care_taker_img, care_taker_father, care_taker_cast, care_taker_name, care_taker_contact, care_taker_address, care_taker_cnic, care_taker_id_card_back, care_taker_id_card_front } = req.body;
 
   try {
 
@@ -63,7 +63,9 @@ module.exports.addCareTaker = async (req, res, next) => {
       care_taker_address,
       care_taker_cnic,
       care_taker_id_card_back,
-      care_taker_id_card_front
+      care_taker_id_card_front,
+      care_taker_father,
+      care_taker_cast
     })
 
     if (user)
@@ -80,7 +82,7 @@ module.exports.addCareTaker = async (req, res, next) => {
 
 
 module.exports.addOwner = async (req, res, next) => {
-  const { owner_img, owner_name, owner_contact, owner_address, owner_cnic } = req.body;
+  const { owner_img, owner_father, owner_cast, owner_name, owner_contact, owner_address, owner_cnic } = req.body;
 
   try {
 
@@ -90,6 +92,8 @@ module.exports.addOwner = async (req, res, next) => {
       owner_contact,
       owner_address,
       owner_cnic,
+      owner_father,
+      owner_cast
     })
 
     if (user)
@@ -106,7 +110,7 @@ module.exports.addOwner = async (req, res, next) => {
 
 
 module.exports.addRefrence = async (req, res, next) => {
-  const { refrence_img, refrence_name, refrence_contact, refrence_address, refrence_cnic, refrence_id_card_back, refrence_id_card_front } = req.body;
+  const { refrence_img, refrence_father, refrence_cast, refrence_name, refrence_contact, refrence_address, refrence_cnic, refrence_id_card_back, refrence_id_card_front } = req.body;
 
   try {
 
@@ -117,7 +121,9 @@ module.exports.addRefrence = async (req, res, next) => {
       refrence_address,
       refrence_cnic,
       refrence_id_card_back,
-      refrence_id_card_front
+      refrence_id_card_front,
+      refrence_father,
+      refrence_cast
     })
 
     if (refrence)
@@ -546,14 +552,14 @@ exports.FindDataOfMonthOfAnimal = async (req, res) => {
       }
     ]);
 
-    let animalAndSalerDetailes = [animalAndSalerDetails,animalDetails]
+    let animalAndSalerDetailes = [animalAndSalerDetails, animalDetails]
 
 
 
 
 
     if (animalDetails || salerDetails || dates || animalAndSalerDetailes) {
-      return res.status(200).json({ animalDetails, salerDetails, dates,animalAndSalerDetailes });
+      return res.status(200).json({ animalDetails, salerDetails, dates, animalAndSalerDetailes });
     } else {
       return res.status(404).json({ error: true, msg: "User Not Found" });
     }
