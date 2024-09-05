@@ -141,7 +141,7 @@ module.exports.addRefrence = async (req, res, next) => {
 
 
 module.exports.addSaler = async (req, res) => {
-  const { animal_img, animal_img2, animal_condition, profit_percentage_by_day, profit_amount_by_day, profit_amount_by_month, profit_percentage_by_month, animal_term_conditions, animal_baby_gender, saler_notes, care_taker_actual_profit, owner_actual_profit, total_actual_profit, animal_advance_loan, animal_notes, animal_tag, animal_age, animal_type, animal_gender, animal_color, animal_weight, animal_purchased_price, animal_purchased_date, animal_seman_date, care_taker, owner, expence_name, expence_price, saler_name, saler_contact, saler_address, sale_price, sale_date, owner_amount, care_taker_amount, animal_refrence, total_actual_profit_percentage, care_taker_actual_profit_percentage, owner_actual_profit_percentage, type, animal_seman_type, animal_baby } = req.body;
+  const { animal_img, sale_amount_promise_date, sale_animal_baby, sale_animal_baby_gender, animal_img2, animal_condition, profit_percentage_by_day, profit_amount_by_day, profit_amount_by_month, profit_percentage_by_month, animal_term_conditions, animal_baby_gender, saler_notes, care_taker_actual_profit, owner_actual_profit, total_actual_profit, animal_advance_loan, animal_notes, animal_tag, animal_age, animal_type, animal_gender, animal_color, animal_weight, animal_purchased_price, animal_purchased_date, animal_seman_date, care_taker, owner, expence_name, expence_price, saler_name, saler_contact, saler_address, sale_price, sale_date, owner_amount, care_taker_amount, animal_refrence, total_actual_profit_percentage, care_taker_actual_profit_percentage, owner_actual_profit_percentage, type, animal_seman_type, animal_baby } = req.body;
 
   try {
 
@@ -188,7 +188,10 @@ module.exports.addSaler = async (req, res) => {
       profit_amount_by_day,
       profit_amount_by_month,
       animal_condition,
-      animal_condition
+      animal_condition,
+      sale_amount_promise_date,
+      sale_animal_baby,
+      sale_animal_baby_gender
     })
 
     if (animal)
@@ -313,6 +316,51 @@ exports.AnimalGetById = async (req, res) => {
 
     const id = req.params.id;
     const data = await Animal.find({ _id: `${id}` })
+    if (!data) {
+      return res.status(404).json({ mag: "User Not Found" })
+    }
+    res.status(200).json({ data })
+
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
+}
+
+
+exports.SearchFilterAnimal = async (req, res) => {
+  try {
+    const careTaker = req.params.careTaker;
+    const data = await Animal.aggregate([
+      {
+        $match: {
+          care_taker: careTaker
+        }
+      },
+      {
+        $lookup: {
+          from: "care_taker",
+          localField: "care_taker",
+          foreignField: "care_taker_name",
+          as: "care_taker_Information"
+        }
+      },
+      {
+        $lookup: {
+          from: "owner",
+          localField: "owner",
+          foreignField: "owner_name",
+          as: "owner_Information"
+        }
+      },
+      {
+        $lookup: {
+          from: "refrence",
+          localField: "animal_refrence",
+          foreignField: "refrence_name",
+          as: "refrence_Information"
+        }
+      }
+    ])
     if (!data) {
       return res.status(404).json({ mag: "User Not Found" })
     }
