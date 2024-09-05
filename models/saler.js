@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema({
     animal_img: { type: String, required: false },
     animal_img2: { type: String, required: false },
-    animal_tag: { type: String, required: false },
+    animal_tag: { type: Number, required: false },
     animal_age: { type: Number, required: false },
     animal_type: { type: String, required: false },
     animal_gender: { type: String, required: false },
